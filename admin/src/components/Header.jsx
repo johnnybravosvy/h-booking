@@ -21,9 +21,9 @@ const Header = () => {
 
         <nav className="">
           <Link to="/">Home</Link>
+          <Link to="/rooms">Rooms</Link>
           {user ? (
             <>
-              <Link to="/dashboard">Dashboard</Link>
               <Link to="/rooms/create">Create</Link>
               <button onClick={handleLogout}>Logout</button>
             </>

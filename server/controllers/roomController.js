@@ -24,6 +24,7 @@ const createRoom = async (req, res, next) => {
       res.status(400);
       throw new Error("there was an error creating the room");
     }
+    const rooms = await Room.find();
     return res.status(201).json(room);
   } catch (error) {
     next(error);
@@ -43,7 +44,7 @@ const getRoom = async (req, res, next) => {
 
     return res.status(200).json(room);
   } catch (error) {
-    ext(error);
+    next(error);
   }
 };
 
@@ -55,7 +56,7 @@ const updateRoom = async (req, res, next) => {
       {
         $set: req.body,
       },
-      { new: true },
+      { returnDocument: "after" },
     );
 
     if (!updatedRoom) {

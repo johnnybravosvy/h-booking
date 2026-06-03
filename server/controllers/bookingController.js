@@ -2,7 +2,7 @@ const Booking = require("../models/bookingModel");
 
 const getBookings = async (req, res, next) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find().populate("roomId");
     if (!bookings) {
       res.status(400);
       throw new Error("cannot find bookings");
@@ -36,7 +36,7 @@ const updateBooking = async (req, res, next) => {
         $set: req.body,
       },
       {
-        new: true,
+        returnDocument: "after",
       },
     );
 
@@ -68,7 +68,7 @@ const deleteBooking = async (req, res, next) => {
 // get single booking
 const getBooking = async (req, res, next) => {
   try {
-    const booking = await Booking.findById(req.params.id);
+    const booking = await Booking.findById(req.params.id).populate("roomId");
 
     if (!booking) {
       res.status(400);
@@ -83,8 +83,8 @@ const getBooking = async (req, res, next) => {
 
 module.exports = {
   getBookings,
-  getBooking,
   createBooking,
   updateBooking,
+  getBooking,
   deleteBooking,
 };

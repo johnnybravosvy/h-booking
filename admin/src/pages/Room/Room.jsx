@@ -36,6 +36,7 @@ const Room = () => {
     };
     getRoom();
   }, []);
+
   const handleDelete = () => {
     dispatch(deleteRoom(id));
   };
@@ -46,12 +47,12 @@ const Room = () => {
         {room ? (
           <div>
             <div className="img-wrapper">
-              {/* <Carousel data={room.img} /> */}
+              <Carousel data={room.img || []} />
 
-              <img
+              {/* <img
                 src={room.img?.[0] ?? "/placeholder-room.jpg"}
                 alt={room.name || ""}
-              />
+              /> */}
             </div>
             <div className="text-wrapper">
               <h1 className="heading center"> {room.name} </h1>

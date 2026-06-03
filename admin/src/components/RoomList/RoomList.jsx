@@ -15,8 +15,8 @@ const RoomList = ({ data }) => {
             className="room-unit"
           >
             <div className="img-wrapper">
-              <img src={imgSrc} alt={item.name || "Room"} />
-              {/* <Carousel data={item.img || [] } /> */}
+              {/* <img src={imgSrc} alt={item.name || "Room"} /> */}
+              <Carousel data={item.img || []} />
             </div>
             <p className="name"> {item.name} </p>
           </Link>

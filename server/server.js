@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
   const filePath = path.resolve(__dirname, "build", "index.html");
   app.use(express.static(publicpath));
 
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     return res.sendFile(filePath);
   });
 }

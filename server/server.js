@@ -23,20 +23,23 @@ app.use("/api/users", userRoutes);
 
 // Production static files
 if (process.env.NODE_ENV === "production") {
-  const clientPath = path.join(__dirname, "build");
-  const clientIndexPath = path.resolve(__dirname, "build", "index.html");
-  const adminPath = path.join(__dirname, "admin-build");
-  const adminIndexPath = path.resolve(__dirname, "admin-build", "index.html");
+  const clientPath = path.join(__dirname, "..", "build");
+  const clientIndexPath = path.resolve(__dirname, "..", "build", "index.html");
+  const adminPath = path.join(__dirname, "..", "admin-build");
+  const adminIndexPath = path.resolve(
+    __dirname,
+    "..",
+    "admin-build",
+    "index.html",
+  );
 
   app.use(express.static(clientPath));
   app.use("/admin", express.static(adminPath));
 
-  // Admin SPA fallback
   app.use("/admin", (req, res) => {
     res.sendFile(adminIndexPath);
   });
 
-  // Main client catch-all
   app.use((req, res) => {
     res.sendFile(clientIndexPath);
   });

@@ -25,14 +25,35 @@ app.use("/api/users", userRoutes);
 
 // setup production
 if (process.env.NODE_ENV === "production") {
-  const publicpath = path.join(__dirname, "build");
-  const filePath = path.resolve(__dirname, "build", "index.html");
-  app.use(express.static(publicpath));
+  // Client (main app) - your existing setup
+  const clientPath = path.join(__dirname, "build");
+  const clientIndexPath = path.resolve(__dirname, "build", "index.html");
+  app.use(express.static(clientPath));
 
+  // Admin panel - add this
+  const adminPath = path.join(__dirname, "admin-build");
+  const adminIndexPath = path.resolve(__dirname, "admin-build", "index.html");
+  app.use("/admin", express.static(adminPath));
+
+  // Handle admin React Router routes (e.g., /admin/dashboard, /admin/rooms)
+  app.get("/admin/*", (req, res) => {
+    res.sendFile(adminIndexPath);
+  });
+
+  // Catch-all for main client (must come LAST)
   app.use((req, res) => {
-    res.sendFile(filePath);
+    res.sendFile(clientIndexPath);
   });
 }
+// if (process.env.NODE_ENV === "production") {
+//   const publicpath = path.join(__dirname, "build");
+//   const filePath = path.resolve(__dirname, "build", "index.html");
+//   app.use(express.static(publicpath));
+
+//   app.use((req, res) => {
+//     res.sendFile(filePath);
+//   });
+// }
 
 app.use(errorHandler);
 

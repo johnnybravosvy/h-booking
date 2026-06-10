@@ -25,11 +25,11 @@ app.use("/api/users", userRoutes);
 
 // setup production
 if (process.env.NODE_ENV === "production") {
-  const publicpath = path.join(__dirname, ".", "build");
-  const filePath = path.resolve(__dirname, ".", "build", "index.html");
+  const publicpath = path.join(__dirname, "build");
+  const filePath = path.resolve(__dirname, "build", "index.html");
   app.use(express.static(publicpath));
 
-  app.get("/.*/", (req, res) => {
+  app.get("*", (req, res) => {
     return res.sendFile(filePath);
   });
 }

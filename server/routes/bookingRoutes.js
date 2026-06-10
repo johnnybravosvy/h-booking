@@ -15,7 +15,7 @@ const router = Router();
 router.get("/", auth, getBookings);
 
 // create booking
-router.post("/", auth, createBooking);
+router.post("/", createBooking);
 
 // get a single Booking
 router.get("/:id", getBooking);

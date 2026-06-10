@@ -17,12 +17,14 @@ const Dashboard = () => {
       dispatch(reset());
     }
   }, [isSuccess]);
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
     dispatch(getBookings());
   }, [user]);
+
   return (
     <div>
       <h1 className="heading center">Dashboard</h1>

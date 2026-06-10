@@ -25,22 +25,21 @@ app.use("/api/users", userRoutes);
 
 // setup production
 if (process.env.NODE_ENV === "production") {
-  // Client (main app) - your existing setup
   const clientPath = path.join(__dirname, "build");
   const clientIndexPath = path.resolve(__dirname, "build", "index.html");
-  app.use(express.static(clientPath));
-
-  // Admin panel - add this
   const adminPath = path.join(__dirname, "admin-build");
   const adminIndexPath = path.resolve(__dirname, "admin-build", "index.html");
+
+  // Serve static files
+  app.use(express.static(clientPath));
   app.use("/admin", express.static(adminPath));
 
-  // Handle admin React Router routes (e.g., /admin/dashboard, /admin/rooms)
-  app.get("/admin/*", (req, res) => {
+  // Admin SPA fallback — catches any /admin/* that isn't a static file
+  app.use("/admin", (req, res) => {
     res.sendFile(adminIndexPath);
   });
 
-  // Catch-all for main client (must come LAST)
+  // Main client catch-all
   app.use((req, res) => {
     res.sendFile(clientIndexPath);
   });

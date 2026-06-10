@@ -19,6 +19,11 @@ const Room = () => {
 
         if (res.ok) {
           const data = await res.json();
+          console.log("Room data received:", data);
+          console.log("Room images:", data.img); // ← Now check data.img
+          console.log("Is img an array?", Array.isArray(data.img));
+          console.log("Img length:", data.img?.length);
+
           setRoom(data);
         }
       } catch (error) {
@@ -37,7 +42,7 @@ const Room = () => {
         {room ? (
           <div>
             <div className="img-wrapper">
-              <Carousel data={room.img} />
+              <Carousel data={room.img || []} />
 
               {/* <img src={room.img[0]} alt="" /> */}
             </div>

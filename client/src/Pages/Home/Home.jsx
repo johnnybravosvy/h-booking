@@ -4,7 +4,6 @@ const Home = () => {
     <div id="home">
       <div className="img-wra">
         <img src="/images/hotel.jpg" alt="" />
-        Home
       </div>
     </div>
   );

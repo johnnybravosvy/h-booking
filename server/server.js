@@ -8,7 +8,6 @@ const roomRoutes = require("./routes/roomRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cookieParser = require("cookie-parser");
-const { auth } = require("./middleware/authMiddleware");
 
 const port = process.env.PORT || 6000;
 
@@ -20,7 +19,6 @@ app.use(cookieParser());
 app.use(express.json());
 
 // routes
-app.use("/auth", auth);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/users", userRoutes);
@@ -31,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
   const filePath = path.resolve(__dirname, ".", "build", "index.html");
   app.use(express.static(publicpath));
 
-  app.get("*", (req, res) => {
+  app.get("/.*/", (req, res) => {
     return res.sendFile(filePath);
   });
 }
